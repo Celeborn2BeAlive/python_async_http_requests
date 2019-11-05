@@ -109,10 +109,10 @@ async def async_map(f, async_it):
 async def main2():
     # not working behind proxy ? or maybe something else
     # see https://github.com/aio-libs/aiohttp/issues/3672
-    session = ClientSession()
-    resp = await session.request(method='GET', url='https://regex101.com/')
-    print(resp.text())
-    session.close()
+    async with ClientSession() as session:
+        resp = await session.request(method='GET', url='https://regex101.com/')
+        print(await resp.text())
+
     return
 
     async with ClientSession() as session:
